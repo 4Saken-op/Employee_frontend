@@ -1,0 +1,19 @@
+.blue {
+  background-color: rgb(80, 181, 245);
+  width: 150px;
+  margin-right: 20px;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0px 3px 6px 0px rgba(191, 238, 255, 1);
+}
+
+.white {
+  background-color: white;
+  width: 150px;
+  margin-right: 20px;
+  color: rgba(138, 140, 143, 1);
+  border: 1px solid rgba(138, 140, 143, 1);
+  border-radius: 3px;
+  box-shadow: 0px 3px 6px 0px rgba(201, 201, 201, 0.161);
+}
