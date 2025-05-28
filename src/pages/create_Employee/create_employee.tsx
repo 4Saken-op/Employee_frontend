@@ -7,7 +7,7 @@ export const CreateEmployee = () => {
   return (
     <div className="main">
       <div className="left-div">
-        <img className="logo" src="./src/assets/images/kv-logo.png" alt="" />
+        <img className="logo" src="/src/assets/images/kv-logo.png" alt="" />
         <Sidebar />
         <div className="side-bar"></div>
       </div>

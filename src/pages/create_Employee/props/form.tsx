@@ -2,10 +2,18 @@ import { Input } from "../../create_Employee/props/input";
 import { Options } from "./options_input";
 import "./form.css";
 import FormButton from "./FormButton";
+import { useNavigate } from "react-router-dom";
 
 export const Employee_details = () => {
   const roles = ["HR", "UI", "UX", "TESTER"];
   const statuses = ["Working", "Not Working"];
+  const navigate = useNavigate();
+
+  const onclick = () => {
+    alert("Signed Out!");
+    localStorage.setItem("isLoggedIn", "false");
+    navigate("/login");
+  };
 
   return (
     <section className="form-section">
@@ -31,7 +39,12 @@ export const Employee_details = () => {
         </div>
 
         <div className="div2">
-          <FormButton type="submit" value="create" className="blue" />
+          <FormButton
+            type="submit"
+            value="Exit"
+            className="blue"
+            onClick={onclick}
+          />
           <FormButton type="reset" value="cancel" className="white" />
         </div>
       </form>

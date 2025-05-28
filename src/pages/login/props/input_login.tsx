@@ -4,12 +4,14 @@ export const LoginInput = ({
   type,
   placeholder,
   name,
+  value,
   onChange,
   ref,
 }: {
   type: string;
   placeholder: string;
   name: string;
+  value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   ref?: React.Ref<HTMLInputElement>;
 }) => {
@@ -17,6 +19,7 @@ export const LoginInput = ({
     <input
       type={type}
       name={name}
+      value={value}
       placeholder={placeholder}
       onChange={onChange}
       ref={ref}

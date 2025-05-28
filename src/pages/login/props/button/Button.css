@@ -1,5 +1,9 @@
 .button {
-  background-color: #03aeee;
-  width: 350px;
-  margin-top: 20px;
+  box-shadow: 1px 1px 6px #b0e6fa;
+  color: white;
+  background-color: rgb(18, 122, 234);
+  width: 100%;
+  height: 50px;
+  margin-top: 45px;
+  border-radius: 10px;
 }

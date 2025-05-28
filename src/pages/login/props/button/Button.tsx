@@ -2,9 +2,9 @@ import "./Button.css";
 
 type buttonType = {
   label: string;
-  onClick: () => void;
-  type: "submit" | "reset" | "button" | undefined;
-  name: string;
+  onClick?: () => void;
+  type?: "submit" | "reset" | "button" | undefined;
+  name?: string;
 };
 
 export const Button = ({ label, onClick, name, type }: buttonType) => {
