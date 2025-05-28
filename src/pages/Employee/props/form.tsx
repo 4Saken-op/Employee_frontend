@@ -1,8 +1,8 @@
-import { Input } from "../../create_Employee/props/input";
+import { Input } from "./input";
 import { Options } from "./options_input";
 import "./form.css";
-import FormButton from "./FormButton";
 import { useNavigate } from "react-router-dom";
+import FormButton from "./FormButton";
 
 export const Employee_details = () => {
   const roles = ["HR", "UI", "UX", "TESTER"];

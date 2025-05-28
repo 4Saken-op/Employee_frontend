@@ -1,6 +1,6 @@
-import { Login } from "./pages/login/Login";
+import { Login } from "./pages/Login/Login";
 import "./index.css";
-import { CreateEmployee } from "./pages/create_Employee/create_employee";
+import { CreateEmployee } from "./pages/Employee/create_employee";
 //import UncontrolledLogin from "./pages/login/uncontrolled/Uncontroller_Login";
 
 import {
@@ -8,11 +8,12 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import NotFound from "./pages/notfound/NotFound";
+import NotFound from "./pages/Notfound/NotFound";
 // import { SignedInRouter } from "./private_routers/signedinrouter";
-import { MainLayout } from "./pages/create_Employee/main_layout";
-import { EmployeeDetailsByID } from "./pages/create_Employee/id_emp_details";
-import { CreateEmp } from "./pages/create_Employee/create_emp";
+import { MainLayout } from "./pages/Employee/main_layout";
+import { EmployeeDetailsByID } from "./pages/Employee/id_emp_details";
+import { CreateEmp } from "./pages/Employee/create_emp";
+import { EmployeeDetails } from "./pages/Employee/emp_details";
 
 const isLoggedIn = () => {
   const token = localStorage.getItem("isLoggedIn");
@@ -38,11 +39,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <CreateEmp />,
+        element: <EmployeeDetails />,
       },
       {
         path: "create",
-        element: <CreateEmployee />,
+        element: <CreateEmp />,
       },
       {
         path: ":id",
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: ":id/edit",
-        element: <CreateEmployee />,
+        element: <EmployeeDetailsByID />,
       },
     ],
   },

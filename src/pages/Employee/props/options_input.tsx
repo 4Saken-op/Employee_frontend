@@ -4,7 +4,7 @@ type optionType = {
   name: string;
   label: string;
   list: string[];
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export const Options = ({ name, label, list, onChange }: optionType) => {

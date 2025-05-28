@@ -1,5 +1,5 @@
 import "./create_employee.css";
-import { Head } from "../login/props/head";
+import { Head } from "../Login/props/head";
 import { Employee_details } from "./props/form";
 
 export const CreateEmp = () => {
