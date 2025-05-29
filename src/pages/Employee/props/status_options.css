@@ -1,7 +1,10 @@
 .status_select {
-  padding: 10px;
+  padding-left: 10px;
   width: 150px;
-  background-color: white;
+  background-color: #eaf9ff;
   height: 30px;
   margin-left: 10px;
+  margin-top: 0px;
+  border-radius: 20px;
+  border: aliceblue;
 }

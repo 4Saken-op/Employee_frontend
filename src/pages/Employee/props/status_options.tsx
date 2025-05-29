@@ -9,8 +9,8 @@ type optionType = {
 export const StatusOptions = ({ name, list, onChange }: optionType) => {
   return (
     <select className="status_select" name={name} onChange={onChange} required>
-      <option value="" selected hidden disabled>
-        {}
+      <option value="" selected hidden>
+        Select Status
       </option>
       {list.map((item, idx) => (
         <option key={idx} value={item}>

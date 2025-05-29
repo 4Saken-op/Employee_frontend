@@ -26,16 +26,20 @@ export const EmployeeDetailsHeader = () => {
   };
   return (
     <div className="heading_section">
-      <h2 className="heading">Employee Details</h2>
+      <h2 className="heading">Employee List</h2>
       <div className="Update">
-        <div>Filter By</div>
+        <div style={{ paddingTop: "5px" }}>Filter By</div>
         <StatusOptions
           name="status"
           list={statuses}
           onChange={(e) => handleStatusFilterChange(e.target.value)}
         />
-        <div className="circle" onClick={jumpToEmployee} />
-        <div style={{ marginRight: "30px" }}>Create Employee </div>
+        <div className="circle" onClick={jumpToEmployee}>
+          <img className="plus" src="/src/assets/images/plus.png" />
+        </div>
+        <div style={{ marginRight: "30px", paddingTop: "5px" }}>
+          Create Employee
+        </div>
       </div>
     </div>
   );

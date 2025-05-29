@@ -10,9 +10,12 @@ export const Employee_details = () => {
   const navigate = useNavigate();
 
   const onclick = () => {
-    alert("Signed Out!");
-    localStorage.setItem("isLoggedIn", "false");
-    navigate("/login");
+    alert("Created successsfullly");
+    navigate("/employee");
+  };
+
+  const goBack = () => {
+    navigate("/employee");
   };
 
   return (
@@ -40,12 +43,17 @@ export const Employee_details = () => {
 
         <div className="div2">
           <FormButton
-            type="submit"
-            value="Exit"
+            type="button"
+            value="Create"
             className="blue"
             onClick={onclick}
           />
-          <FormButton type="reset" value="cancel" className="white" />
+          <FormButton
+            type="reset"
+            value="Cancel"
+            className="white"
+            onClick={goBack}
+          />
         </div>
       </form>
     </section>

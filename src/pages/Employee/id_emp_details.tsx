@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import "./create_employee.css";
 // import { Head } from "../login/props/head";
 // import { Employee_details } from "./props/form";
@@ -8,6 +9,7 @@ import { Detail } from "./props/detail";
 import { EmployeeHeader } from "./props/employeeheader";
 
 export const EmployeeDetailsByID = () => {
+  const { id } = useParams();
   // const statuses = ["All", "Active", "Inactive", "Probation"];
   // const [searchParams, setSearchParams] = useSearchParams();
 
@@ -28,7 +30,7 @@ export const EmployeeDetailsByID = () => {
   return (
     <div className="right-div">
       <div className="Header">
-        <EmployeeHeader />
+        <EmployeeHeader id={id} />
       </div>
       {/* <Options
         label="Status Select"

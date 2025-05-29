@@ -13,7 +13,7 @@ export const CreateEmployee = () => {
       </div>
       <div className="right-div">
         <div className="Header">
-          <Head />
+          <Head label="Create Employee" />
         </div>
         <div className="Form">
           <Employee_details />

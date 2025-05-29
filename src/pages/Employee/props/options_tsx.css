@@ -3,9 +3,15 @@
   padding: 20px;
 }
 
-select {
+.another_select {
   padding: 10px;
   margin-top: 10px;
   width: 100%;
   background-color: white;
+  border-radius: 10px;
+  border-color: #80808054;
+}
+
+.another_select :focus {
+  border-color: #1eb4f0;
 }

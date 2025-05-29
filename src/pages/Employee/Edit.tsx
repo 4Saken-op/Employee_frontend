@@ -1,15 +1,15 @@
 import "./create_employee.css";
 import { Head } from "../Login/props/head";
-import { Employee_details } from "./props/form";
+import { EditContent } from "./props/EditContent";
 
-export const CreateEmp = () => {
+export const EditEmp = () => {
   return (
     <div className="right-div">
       <div className="Header">
-        <Head label="Create Employee" />
+        <Head label="Edit Employee" />
       </div>
       <div className="Form">
-        <Employee_details />
+        <EditContent />
       </div>
     </div>
   );

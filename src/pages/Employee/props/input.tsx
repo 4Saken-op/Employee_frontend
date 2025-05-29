@@ -4,16 +4,26 @@ export const Input = ({
   type,
   placeholder,
   label,
+  value,
+  isDisabled = false,
 }: {
   type: string;
-  placeholder: string;
+  placeholder?: string;
   label: string;
+  value?: string;
+  isDisabled?: boolean;
 }) => {
   return (
     <div className="input_body">
       <label>{label}</label>
       <br />
-      <input type={type} placeholder={placeholder} />
+      <input
+        className="create_options"
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        disabled={isDisabled}
+      />
     </div>
   );
 };

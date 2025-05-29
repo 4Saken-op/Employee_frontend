@@ -22,24 +22,23 @@
 .Edit {
   display: flex;
   padding-right: 30px;
+  background-color: #eaf9ff;
+  border-radius: 50px;
+  margin-right: 30px;
 }
 
 .Edit h3 {
   width: 70px;
-  text-align: right;
-  background-color: lightblue;
+  text-align: center;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  padding-right: 5px;
+  padding: 10px;
 }
 
 .pen {
   width: 30px;
   height: 30px;
-  margin-right: 2px;
-  border: solid;
-  border-radius: 5px;
-  border-color: lightblue;
+  margin-top: 10px;
 }
 
 .Update {
@@ -47,10 +46,25 @@
 }
 
 .circle {
-  width: 30px;
-  height: 30px;
-  border: solid;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  background-color: #03aeee;
   border-radius: 100%;
   margin-left: 100px;
   margin-right: 10px;
+}
+
+.plus {
+  width: 20px;
+  height: 20px;
+  margin-top: 10px;
+}
+
+.editpen {
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  background-color: #03aeee;
+  border-radius: 100%;
 }

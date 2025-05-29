@@ -1,6 +1,6 @@
 import { Login } from "./pages/Login/Login";
 import "./index.css";
-import { CreateEmployee } from "./pages/Employee/create_employee";
+// import { CreateEmployee } from "./pages/Employee/create_employee";
 //import UncontrolledLogin from "./pages/login/uncontrolled/Uncontroller_Login";
 
 import {
@@ -14,6 +14,7 @@ import { MainLayout } from "./pages/Employee/main_layout";
 import { EmployeeDetailsByID } from "./pages/Employee/id_emp_details";
 import { CreateEmp } from "./pages/Employee/create_emp";
 import { EmployeeDetails } from "./pages/Employee/emp_details";
+import { EditEmp } from "./pages/Employee/Edit";
 
 const isLoggedIn = () => {
   const token = localStorage.getItem("isLoggedIn");
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
       },
       {
         path: ":id/edit",
-        element: <EmployeeDetailsByID />,
+        element: <EditEmp />,
       },
     ],
   },

@@ -16,7 +16,6 @@ input {
   background-color: white;
   border-radius: 10px;
   border-color: #80808054;
-  box-shadow: 0px 3px 6px rgba(176, 230, 250, 1);
 }
 
 input:focus {
