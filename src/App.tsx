@@ -1,15 +1,16 @@
-import { Login } from "./pages/Login/Login";
-import "./index.css";
 // import { CreateEmployee } from "./pages/Employee/create_employee";
 //import UncontrolledLogin from "./pages/login/uncontrolled/Uncontroller_Login";
+// import { SignedInRouter } from "./private_routers/signedinrouter";
 
+import { Login } from "./pages/Login/Login";
+import "./index.css";
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
 import NotFound from "./pages/Notfound/NotFound";
-// import { SignedInRouter } from "./private_routers/signedinrouter";
+
 import { MainLayout } from "./pages/Employee/main_layout";
 import { EmployeeDetailsByID } from "./pages/Employee/id_emp_details";
 import { CreateEmp } from "./pages/Employee/create_emp";

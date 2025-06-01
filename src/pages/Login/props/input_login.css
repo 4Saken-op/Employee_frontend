@@ -18,7 +18,7 @@ input {
   border-color: #80808054;
 }
 
-input:focus {
+/* input:focus {
   border-color: #1eb4f0;
   outline: none;
-}
+} */

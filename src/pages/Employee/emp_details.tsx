@@ -3,18 +3,14 @@ import { DeleteEditButton } from "./props/DeleteEditButton";
 import { EmployeeRow } from "./props/employee_row";
 import { EmployeeDetailsHeader } from "./props/employeeDetailsheader";
 import { Status } from "./props/Status";
+import { useSelector } from "react-redux";
+import type {
+  Employee,
+  EmployeeState,
+} from "../../store/employee/employee.types";
 
 export const EmployeeDetails = () => {
-  type employeeType = {
-    name: string;
-    id: string;
-    joining: string;
-    role: string;
-    status: string;
-    experience: string;
-  };
-
-  let employees: employeeType[] = [
+  let employees: Employee[] = [
     {
       name: "Vishal M",
       id: "1",
@@ -60,7 +56,10 @@ export const EmployeeDetails = () => {
   // // const newSearchParams = new URLSearchParams(searchParams);
   let currentStatus = searchParams.get("status");
 
-  console.log("Status in createEmployee: " + currentStatus);
+  console.log("Status in createEmployee: ", currentStatus);
+
+  const newEmployees = useSelector((state: EmployeeState) => state.employees);
+  // employees = [...employees, ...newEmployees];
 
   return (
     <div className="right-div">
@@ -78,7 +77,7 @@ export const EmployeeDetails = () => {
         action="Action"
       />
 
-      {employees
+      {newEmployees
         .filter(
           (item) => item.status === currentStatus || currentStatus === null
         )
@@ -91,7 +90,7 @@ export const EmployeeDetails = () => {
             role={item.role}
             status={<Status status={item.status} />}
             experience={item.experience}
-            action={<DeleteEditButton id={item.id} />}
+            action={<DeleteEditButton id={item.id} name={item.name} />}
           />
         ))}
     </div>

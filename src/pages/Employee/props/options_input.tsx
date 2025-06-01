@@ -16,13 +16,22 @@ export const Options = ({ name, label, list, value, onChange }: optionType) => {
       <select
         className="another_select"
         name={name}
-        value={value}
+        // value={value}
         onChange={onChange}
         required
       >
-        <option value="" selected hidden>
-          {name}
-        </option>
+        {!value && (
+          <option value="" hidden>
+            {name}
+          </option>
+        )}
+
+        {value && (
+          <option value={value} hidden>
+            {value}
+          </option>
+        )}
+
         {list.map((item, idx) => (
           <option key={idx} value={item}>
             {item}

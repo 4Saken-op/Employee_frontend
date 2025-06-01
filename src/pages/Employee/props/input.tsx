@@ -1,3 +1,4 @@
+import type { ChangeEvent } from "react";
 import "./input.css";
 
 export const Input = ({
@@ -6,12 +7,14 @@ export const Input = ({
   label,
   value,
   isDisabled = false,
+  update,
 }: {
   type: string;
   placeholder?: string;
   label: string;
   value?: string;
   isDisabled?: boolean;
+  update?: React.ChangeEventHandler<HTMLInputElement>;
 }) => {
   return (
     <div className="input_body">
@@ -23,6 +26,7 @@ export const Input = ({
         value={value}
         placeholder={placeholder}
         disabled={isDisabled}
+        onChange={update}
       />
     </div>
   );
