@@ -2,15 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "./input";
 import { Options } from "./options_input";
 import FormButton from "./FormButton";
-
-type employeeType = {
-  name: string;
-  id: string;
-  joining: string;
-  role: string;
-  status: string;
-  experience: string;
-};
+import {
+  EmployeeRole,
+  EmployeeStatus,
+  type Employee,
+  type Role,
+  type Status,
+} from "../../../store/employee/employee.types";
 
 export const OriginalForm = ({
   employee,
@@ -18,13 +16,13 @@ export const OriginalForm = ({
   isDisabled,
   submitButton,
 }: {
-  employee: employeeType;
-  setEmployee: (employee: employeeType) => void;
+  employee: Employee;
+  setEmployee: (employee: Employee) => void;
   isDisabled: boolean;
   submitButton: React.ReactNode;
 }) => {
-  const roles = ["HR", "UI", "UX", "TESTER"];
-  const statuses = ["Probation", "Active", "Inactive"];
+  const roles = Object.values(EmployeeRole);
+  const statuses = Object.values(EmployeeStatus);
 
   const navigate = useNavigate();
   const goBack = () => {
@@ -37,34 +35,67 @@ export const OriginalForm = ({
         <div className="div1">
           <Input
             value={employee.name ?? ""}
-            type="text"
+            type="string"
             placeholder="Employee Name"
             label="Employee Name"
             update={(e) => setEmployee({ ...employee, name: e.target.value })}
           />
           <Input
+            value={employee.email ?? ""}
             type="string"
-            value={employee.id ?? ""}
-            placeholder="Employee ID"
-            label="Employee ID"
-            update={(e) => setEmployee({ ...employee, id: e.target.value })}
+            placeholder="Email"
+            label="Email"
+            update={(e) => setEmployee({ ...employee, email: e.target.value })}
+          />
+          <Input
+            value={employee.password ?? ""}
+            type={isDisabled ? "password" : "text"}
+            placeholder="Password"
+            label="Password"
+            update={(e) =>
+              setEmployee({ ...employee, password: e.target.value })
+            }
             isDisabled={isDisabled}
           />
           <Input
-            type="string"
-            value={employee.joining ?? ""}
+            type="number"
+            value={employee.age ? employee.age.toString() : ""}
+            label="Age"
+            placeholder="Age"
+            update={(e) =>
+              setEmployee({
+                ...employee,
+                age: e.target.value === "" ? 0 : Number(e.target.value),
+              })
+            }
+          />
+          <Input
+            type="date"
+            value={
+              employee.dateOfJoining
+                ? employee.dateOfJoining.toISOString().split("T")[0]
+                : ""
+            } // Converts Date -> "YYYY-MM-DD"
             label="Joining date"
             placeholder="Joining date"
-            update={(e) =>
-              setEmployee({ ...employee, joining: e.target.value })
+            update={
+              (e) =>
+                setEmployee({
+                  ...employee,
+                  dateOfJoining: e.target.value
+                    ? new Date(e.target.value)
+                    : null,
+                }) // Converts back to Date
             }
           />
           <Options
-            value={employee.role ?? ""}
+            value={employee.role ? employee.role : ""}
             name="Choose Role"
             list={roles}
             label="Roles"
-            onChange={(e) => setEmployee({ ...employee, role: e.target.value })}
+            onChange={(e) =>
+              setEmployee({ ...employee, role: e.target.value as Role })
+            }
           />
           <Options
             value={employee.status ?? ""}
@@ -72,28 +103,105 @@ export const OriginalForm = ({
             list={statuses}
             label="Status"
             onChange={(e) =>
-              setEmployee({ ...employee, status: e.target.value })
+              setEmployee({ ...employee, status: e.target.value as Status })
             }
           />
           <Input
-            type="string"
-            value={employee.experience ?? ""}
+            type="number"
+            value={employee.experience ? employee.experience.toString() : ""}
             label="Experience"
             placeholder="Experience"
             update={(e) =>
-              setEmployee({ ...employee, experience: e.target.value })
+              setEmployee({
+                ...employee,
+                experience: e.target.value === "" ? 0 : Number(e.target.value),
+              })
             }
           />
-          <Input type="string" placeholder="House No" label="Address" />
           <Input
+            value={employee.departmentId ?? ""}
             type="string"
-            placeholder="Address Line 1"
-            label="Address Line 1"
+            placeholder="Employee Name"
+            label="Department"
+            update={(e) =>
+              setEmployee({ ...employee, departmentId: e.target.value })
+            }
           />
+          <div
+            className="Address_Box"
+            style={{ flex: "display", flexDirection: "column" }}
+          >
+            <Input
+              type="string"
+              value={employee.address?.houseNo ?? ""}
+              placeholder="House No"
+              label="House No"
+              update={(e) =>
+                setEmployee({
+                  ...employee,
+                  address: {
+                    ...employee.address,
+                    houseNo: e.target.value, // assuming houseNo is a string
+                  },
+                })
+              }
+            />
+            <Input
+              type="string"
+              value={employee.address?.line1 ?? ""}
+              placeholder="Line 1"
+              label="Line 1"
+              update={(e) =>
+                setEmployee({
+                  ...employee,
+                  address: {
+                    ...employee.address,
+                    line1: e.target.value, // assuming houseNo is a string
+                  },
+                })
+              }
+            />
+            <Input
+              type="string"
+              value={employee.address?.line2 ?? ""}
+              placeholder="Line 2"
+              label="Line 2"
+              update={(e) =>
+                setEmployee({
+                  ...employee,
+                  address: {
+                    ...employee.address,
+                    line2: e.target.value, // assuming houseNo is a string
+                  },
+                })
+              }
+            />
+            <Input
+              type="string"
+              value={employee.address?.pincode ?? ""}
+              placeholder="Pincode"
+              label="Pincode"
+              update={(e) =>
+                setEmployee({
+                  ...employee,
+                  address: {
+                    ...employee.address,
+                    pincode: e.target.value, // assuming houseNo is a string
+                  },
+                })
+              }
+            />
+          </div>
+
           <Input
             type="string"
-            placeholder="Address Line 2"
-            label="Address LIne 2"
+            value={employee.employeeId ?? ""}
+            placeholder="Employee ID"
+            label="Employee ID"
+            update={(e) =>
+              setEmployee({ ...employee, employeeId: e.target.value })
+            }
+            isDisabled={isDisabled}
           />
         </div>
 

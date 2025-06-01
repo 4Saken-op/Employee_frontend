@@ -1,4 +1,4 @@
-export const Status = ({ status }: { status: string }) => {
+export const Status = ({ status }: { status: string | null }) => {
   return (
     <div
       style={{

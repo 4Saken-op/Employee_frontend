@@ -10,7 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   type Employee,
   EMPLOYEE_ACTION_TYPES,
+  EmployeeRole,
   type EmployeeState,
+  EmployeeStatus,
 } from "../../../store/employee/employee.types";
 
 export const Employee_details = () => {
@@ -20,12 +22,22 @@ export const Employee_details = () => {
   // console.log("Dispatch Data: ", storeState.employees);
 
   const [employeeState, setEmployeeState] = useState<Employee>({
+    employeeId: "",
+    email: "",
     name: "",
-    id: "",
-    joining: "",
-    role: "",
-    status: "",
-    experience: "",
+    age: 0,
+    address: {
+      houseNo: "",
+      line1: "",
+      line2: "",
+      pincode: "",
+    },
+    password: "",
+    role: null, // or EmployeeRole.DEVELOPER etc.
+    dateOfJoining: null,
+    experience: 0,
+    status: null, // one of the allowed Statuses
+    departmentId: "",
   });
 
   return (
@@ -47,6 +59,7 @@ export const Employee_details = () => {
             // console.log(storeState);
             // console.log(store.getState());
             navigate("/employee");
+            console.log(employeeState);
           }}
         />
       }

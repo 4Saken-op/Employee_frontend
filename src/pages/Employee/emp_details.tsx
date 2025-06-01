@@ -8,50 +8,51 @@ import type {
   Employee,
   EmployeeState,
 } from "../../store/employee/employee.types";
+import { DetailsTitleRow } from "./props/detailsTitles";
 
 export const EmployeeDetails = () => {
-  let employees: Employee[] = [
-    {
-      name: "Vishal M",
-      id: "1",
-      joining: "12.04.2021",
-      role: "Full stack",
-      status: "Probation",
-      experience: "5years",
-    },
-    {
-      name: "Susan Kurian",
-      id: "2",
-      joining: "12.04.2021",
-      role: "UI",
-      status: "Active",
-      experience: "5years",
-    },
-    {
-      name: "Vishal M",
-      id: "3",
-      joining: "12.04.2021",
-      role: "Full stack",
-      status: "Probation",
-      experience: "5years",
-    },
-    {
-      name: "Susan Kurian",
-      id: "4",
-      joining: "12.04.2021",
-      role: "UI",
-      status: "Inactive",
-      experience: "5years",
-    },
-    {
-      name: "Susan Kurian",
-      id: "5",
-      joining: "12.04.2021",
-      role: "UI",
-      status: "Inactive",
-      experience: "5years",
-    },
-  ];
+  // let employees: Employee[] = [
+  //   {
+  //     name: "Vishal M",
+  //     id: "1",
+  //     joining: "12.04.2021",
+  //     role: "Full stack",
+  //     status: "Probation",
+  //     experience: "5years",
+  //   },
+  //   {
+  //     name: "Susan Kurian",
+  //     id: "2",
+  //     joining: "12.04.2021",
+  //     role: "UI",
+  //     status: "Active",
+  //     experience: "5years",
+  //   },
+  //   {
+  //     name: "Vishal M",
+  //     id: "3",
+  //     joining: "12.04.2021",
+  //     role: "Full stack",
+  //     status: "Probation",
+  //     experience: "5years",
+  //   },
+  //   {
+  //     name: "Susan Kurian",
+  //     id: "4",
+  //     joining: "12.04.2021",
+  //     role: "UI",
+  //     status: "Inactive",
+  //     experience: "5years",
+  //   },
+  //   {
+  //     name: "Susan Kurian",
+  //     id: "5",
+  //     joining: "12.04.2021",
+  //     role: "UI",
+  //     status: "Inactive",
+  //     experience: "5years",
+  //   },
+  // ];
   const [searchParams, setSearchParams] = useSearchParams();
   // // const newSearchParams = new URLSearchParams(searchParams);
   let currentStatus = searchParams.get("status");
@@ -66,7 +67,7 @@ export const EmployeeDetails = () => {
       <div className="Header">
         <EmployeeDetailsHeader />
       </div>
-      <EmployeeRow
+      <DetailsTitleRow
         name="Name"
         color="lightblue"
         id="ID"
@@ -83,14 +84,14 @@ export const EmployeeDetails = () => {
         )
         .map((item) => (
           <EmployeeRow
-            key={item.id}
+            key={item.employeeId}
             name={item.name}
-            id={item.id}
-            joining={item.joining}
+            id={item.employeeId}
+            joining={item.dateOfJoining}
             role={item.role}
             status={<Status status={item.status} />}
             experience={item.experience}
-            action={<DeleteEditButton id={item.id} name={item.name} />}
+            action={<DeleteEditButton id={item.employeeId} name={item.name} />}
           />
         ))}
     </div>

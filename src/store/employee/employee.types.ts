@@ -7,10 +7,10 @@
  */
 
 export interface Address {
-  houseNo: string;
-  line1: string;
-  line2: string;
-  pincode: string;
+  houseNo: string | null;
+  line1: string | null;
+  line2: string | null;
+  pincode: string | null;
 }
 
 export const EmployeeRole = {
@@ -23,33 +23,33 @@ export const EmployeeRole = {
 export type Role = (typeof EmployeeRole)[keyof typeof EmployeeRole];
 
 export const EmployeeStatus = {
-  ACTIVE: "ACTIVE",
-  INACTIVE: "INACTIVE",
-  PROBATION: "PROBATION",
+  ACTIVE: "Active",
+  INACTIVE: "Inactive",
+  PROBATION: "Probation",
 } as const;
 
 export type Status = (typeof EmployeeStatus)[keyof typeof EmployeeStatus];
 
 export interface Employee {
-  // employeeId: string;
-  // email: string;
-  // name: string;
-  // age: number;
-  // address: Address;
-  // password: string;
-  // role: Role;
-  // dateOfJoining: Date;
-  // experience: number;
-  // status: Status;
-  // departmentId: number | string;
-
+  employeeId: string;
+  email: string;
   name: string;
-  id: string;
-  joining: string;
-  role: string;
-  status: string;
-  experience: string;
+  age: number;
+  address: Address;
+  password: string;
+  role: Role | null;
+  dateOfJoining: Date | null;
+  experience: number | null;
+  status: Status | null;
+  departmentId: string;
 }
+//   name: string;
+//   id: string;
+//   joining: string;
+//   role: string;
+//   status: string;
+//   experience: string;
+// }
 
 export const EMPLOYEE_ACTION_TYPES = {
   CREATE: "employee/CREATE",

@@ -1,14 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "./employee_row.css";
+import type { Role, Status } from "../../../store/employee/employee.types";
 
 type row_type = {
   name: string;
   color?: string;
   id: string;
-  joining: string;
-  role: string;
-  status: string | React.ReactNode;
-  experience: string;
+  joining: Date | null;
+  role: Role | null;
+  status: Status | React.ReactNode;
+  experience: number | null;
   action: string | React.ReactNode;
 };
 
@@ -29,13 +30,13 @@ export const EmployeeRow = ({
   return (
     <div className="full_row" style={{ backgroundColor: color }}>
       <div className="content" onClick={() => goToEmployeePage(id)}>
-        {name}{" "}
+        {name}
       </div>
       <div className="content" onClick={() => goToEmployeePage(id)}>
         {id}
       </div>
       <div className="content" onClick={() => goToEmployeePage(id)}>
-        {joining}
+        {joining ? joining.toISOString().split("T")[0] : ""}
       </div>
       <div className="content" onClick={() => goToEmployeePage(id)}>
         {role}
