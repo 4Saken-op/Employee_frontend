@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Modal.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  EMPLOYEE_ACTION_TYPES,
+  type EmployeeState,
+} from "../../../store/employee/employee.types";
 
 export const DeleteEditButton = ({
   id,
@@ -10,15 +15,22 @@ export const DeleteEditButton = ({
   name: string;
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const newEmployees = useSelector((state: EmployeeState) => state.employees);
+  const found = newEmployees.find((emp) => emp.employeeId === id);
 
-  const goToRemove = (msg: string) => {
-    if (msg === "edit") navigate("/employee/" + id + "/edit");
-    else alert("Are you sure u want to delete");
+  const goToEdit = () => {
+    navigate("/employee/" + id + "/edit");
   };
 
   const handleDelete = () => {
     setShowModal(false);
     alert("Deleted " + { name });
+    dispatch({
+      type: EMPLOYEE_ACTION_TYPES.DELETE,
+      payload: found,
+    });
+    navigate("/employee");
   };
 
   const [showModal, setShowModal] = useState(false);
@@ -40,7 +52,7 @@ export const DeleteEditButton = ({
         <img
           style={{ width: "25px", height: "25px" }}
           src="/src/assets/images/blue_pen.png"
-          onClick={() => goToRemove("edit")}
+          onClick={goToEdit}
         />
       </div>
 

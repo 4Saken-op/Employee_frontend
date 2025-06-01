@@ -16,10 +16,22 @@ export function employeeReducer(
       };
     }
     case EMPLOYEE_ACTION_TYPES.DELETE: {
-      return { ...state };
+      return {
+        ...state,
+        employees: state.employees.filter(
+          (emp) => emp.employeeId !== action.payload.employeeId
+        ),
+      };
     }
     case EMPLOYEE_ACTION_TYPES.UPDATE: {
-      return { ...state };
+      return {
+        ...state,
+        employees: state.employees.map((emp) =>
+          emp.employeeId === action.payload.employeeId
+            ? { ...emp, ...action.payload }
+            : emp
+        ),
+      };
     }
     default: {
       return state;

@@ -2,23 +2,21 @@ import { useNavigate, useParams } from "react-router-dom";
 import FormButton from "./FormButton";
 import { useState } from "react";
 import { OriginalForm } from "./OriginalForm";
-import { useSelector } from "react-redux";
-import type { EmployeeState } from "../../../store/employee/employee.types";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  EMPLOYEE_ACTION_TYPES,
+  type EmployeeState,
+} from "../../../store/employee/employee.types";
 
 export const EditContent = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { id } = useParams();
   const newEmployees = useSelector((state: EmployeeState) => state.employees);
   const found = newEmployees.find((emp) => emp.employeeId === id);
   if (found) {
     const [employeeState, setEmployeeState] = useState(found);
-    const onclick = () => {
-      alert(employeeState.name + "'s details Updated successsfullly");
-      console.log(employeeState);
-
-      navigate("/employee/" + employeeState.employeeId);
-    };
 
     return (
       <OriginalForm
@@ -30,7 +28,17 @@ export const EditContent = () => {
             type="button"
             value="Submit"
             className="blue"
-            onClick={onclick}
+            onClick={() => {
+              alert(employeeState.name + "'s details Updated successsfullly");
+              dispatch({
+                type: EMPLOYEE_ACTION_TYPES.UPDATE,
+                payload: employeeState,
+              });
+              // console.log(storeState);
+              // console.log(store.getState());
+              console.log(employeeState);
+              navigate("/employee/" + employeeState.employeeId);
+            }}
           />
         }
       />
