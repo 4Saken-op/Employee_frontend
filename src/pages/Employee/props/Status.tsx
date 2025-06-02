@@ -3,9 +3,9 @@ export const Status = ({ status }: { status: string | null }) => {
     <div
       style={{
         backgroundColor:
-          status === "Active"
+          status === "ACTIVE"
             ? "#D3F4BE"
-            : status === "Probation"
+            : status === "PROBATION"
             ? "#F5ECB8"
             : "#FFBFBF",
         textAlign: "left",

@@ -6,15 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { OriginalForm } from "./OriginalForm";
 import FormButton from "./FormButton";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  type Employee,
-  EMPLOYEE_ACTION_TYPES,
-  EmployeeRole,
-  type EmployeeState,
-  EmployeeStatus,
-} from "../../../store/employee/employee.types";
+import { useDispatch } from "react-redux";
+import { type Employee } from "../../../store/employee/employee.types";
 import { addEmployee } from "../../../store/employee/employeeReducer";
+import { useCreateEmpMutation } from "../../../api-services/employees/employee.api";
 
 export const Employee_details = () => {
   const navigate = useNavigate();
@@ -23,7 +18,7 @@ export const Employee_details = () => {
   // console.log("Dispatch Data: ", storeState.employees);
 
   const [employeeState, setEmployeeState] = useState<Employee>({
-    employeeId: "",
+    employeeID: "",
     email: "",
     name: "",
     age: 0,
@@ -38,8 +33,10 @@ export const Employee_details = () => {
     dateOfJoining: null,
     experience: 0,
     status: null, // one of the allowed Statuses
-    departmentId: "",
+    deptID: null,
   });
+
+  const [createEmp] = useCreateEmpMutation();
 
   return (
     <OriginalForm
@@ -51,17 +48,22 @@ export const Employee_details = () => {
           type="button"
           value="Submit"
           className="blue"
-          onClick={() => {
+          onClick={async () => {
             alert(employeeState.name + " details created");
-            dispatch(addEmployee(employeeState));
+            // dispatch(addEmployee(employeeState));
             // dispatch({
             //   type: EMPLOYEE_ACTION_TYPES.CREATE,
             //   payload: employeeState,
             // });
             // console.log(storeState);
             // console.log(store.getState());
+            console.log("Employee details: ", employeeState);
+            const response = await createEmp(employeeState);
+            if (response.data) {
+              console.log("🚀 ~ response.data:", response.data);
+              alert("Created in backend");
+            } else alert("Creation unsuccessful");
             navigate("/employee");
-            console.log(employeeState);
           }}
         />
       }

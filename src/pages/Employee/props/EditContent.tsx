@@ -3,23 +3,41 @@ import FormButton from "./FormButton";
 import { useState } from "react";
 import { OriginalForm } from "./OriginalForm";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  EMPLOYEE_ACTION_TYPES,
-  type EmployeeState,
-} from "../../../store/employee/employee.types";
-import { updateEmployee } from "../../../store/employee/employeeReducer";
-import { useAppSelector } from "../../../store/store";
+// import {
+//   EMPLOYEE_ACTION_TYPES,
+//   type EmployeeState,
+// } from "../../../store/employee/employee.types";
 
-export const EditContent = () => {
+import type { GetOneResponse } from "../../../api-services/employees/types";
+import type { Employee } from "../../../store/employee/employee.types";
+import { updateEmployee } from "../../../store/employee/employeeReducer";
+import { useUpdateEmpMutation } from "../../../api-services/employees/employee.api";
+
+export const EditContent = ({ employee }: { employee: GetOneResponse }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const newEmployees = useAppSelector((state) => state.employee.employees);
-  const found = newEmployees.find((emp: any) => emp.employeeId === id);
-  if (found) {
-    const [employeeState, setEmployeeState] = useState(found);
-
+  if (employee) {
+    const [employeeState, setEmployeeState] = useState<Employee>({
+      employeeID: employee.employeeID,
+      email: employee.email,
+      name: employee.name,
+      age: employee.age,
+      address: {
+        houseNo: employee.address.houseNo,
+        line1: employee.address.line1,
+        line2: employee.address.line2,
+        pincode: employee.address.pincode,
+      },
+      password: employee.password,
+      role: employee.role, // or EmployeeRole.DEVELOPER etc.
+      dateOfJoining: employee.dateOfJoining,
+      experience: employee.experience,
+      status: employee.status, // one of the allowed Statuses
+      deptID: Number(employee.dept.id),
+    });
+    const [updateEmp] = useUpdateEmpMutation();
     return (
       <OriginalForm
         employee={employeeState}
@@ -30,23 +48,32 @@ export const EditContent = () => {
             type="button"
             value="Submit"
             className="blue"
-            onClick={() => {
+            onClick={async () => {
               alert(employeeState.name + "'s details Updated successsfullly");
-              dispatch(updateEmployee(employeeState));
+              // dispatch(updateEmployee(employeeState));
               // dispatch({
               //   type: EMPLOYEE_ACTION_TYPES.UPDATE,
               //   payload: employeeState,
               // });
               // console.log(storeState);
               // console.log(store.getState());
-              console.log(employeeState);
-              navigate("/employee/" + employeeState.employeeId);
+
+              console.log("After update: ", employeeState);
+              if (id) {
+                const response = await updateEmp({
+                  id: id,
+                  employee: employeeState,
+                });
+                console.log("After update backend updated: ", response.data);
+              }
+
+              navigate("/employee/" + id);
             }}
           />
         }
       />
     );
   } else {
-    alert("Invalid employee found");
+    alert("Invalid employee fetched");
   }
 };

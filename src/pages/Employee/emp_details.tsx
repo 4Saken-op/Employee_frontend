@@ -3,65 +3,23 @@ import { DeleteEditButton } from "./props/DeleteEditButton";
 import { EmployeeRow } from "./props/employee_row";
 import { EmployeeDetailsHeader } from "./props/employeeDetailsheader";
 import { Status } from "./props/Status";
-import { useSelector } from "react-redux";
-import type {
-  Employee,
-  EmployeeState,
-} from "../../store/employee/employee.types";
+
 import { DetailsTitleRow } from "./props/detailsTitles";
-import { useAppSelector } from "../../store/store";
+
+import { useSelectAllEmpQuery } from "../../api-services/employees/employee.api";
 
 export const EmployeeDetails = () => {
-  // let employees: Employee[] = [
-  //   {
-  //     name: "Vishal M",
-  //     id: "1",
-  //     joining: "12.04.2021",
-  //     role: "Full stack",
-  //     status: "Probation",
-  //     experience: "5years",
-  //   },
-  //   {
-  //     name: "Susan Kurian",
-  //     id: "2",
-  //     joining: "12.04.2021",
-  //     role: "UI",
-  //     status: "Active",
-  //     experience: "5years",
-  //   },
-  //   {
-  //     name: "Vishal M",
-  //     id: "3",
-  //     joining: "12.04.2021",
-  //     role: "Full stack",
-  //     status: "Probation",
-  //     experience: "5years",
-  //   },
-  //   {
-  //     name: "Susan Kurian",
-  //     id: "4",
-  //     joining: "12.04.2021",
-  //     role: "UI",
-  //     status: "Inactive",
-  //     experience: "5years",
-  //   },
-  //   {
-  //     name: "Susan Kurian",
-  //     id: "5",
-  //     joining: "12.04.2021",
-  //     role: "UI",
-  //     status: "Inactive",
-  //     experience: "5years",
-  //   },
-  // ];
   const [searchParams, setSearchParams] = useSearchParams();
+  const { data } = useSelectAllEmpQuery({});
+  // console.log("🚀 ~ EmployeeDetails ~ data:" + data);
   // // const newSearchParams = new URLSearchParams(searchParams);
   let currentStatus = searchParams.get("status");
 
-  console.log("Status in createEmployee: ", currentStatus);
+  // console.log("Status in createEmployee: ", currentStatus);
 
-  const newEmployees = useAppSelector((state) => state.employee.employees);
-  console.log(newEmployees);
+  // const newEmployees = useAppSelector((state) => state.employee.employees);
+  const newEmployees = data || [];
+  // console.log("Emploees fetched from db: ", newEmployees);
   // employees = [...employees, ...newEmployees];
 
   return (
@@ -86,14 +44,17 @@ export const EmployeeDetails = () => {
         )
         .map((item: any) => (
           <EmployeeRow
-            key={item.employeeId}
+            key={item.deptID}
+            actualID={item.id}
             name={item.name}
-            id={item.employeeId}
+            id={item.employeeID}
             joining={item.dateOfJoining}
             role={item.role}
             status={<Status status={item.status} />}
             experience={item.experience}
-            action={<DeleteEditButton id={item.employeeId} name={item.name} />}
+            action={
+              <DeleteEditButton id={item.id} name={item.name} object={item} />
+            }
           />
         ))}
     </div>

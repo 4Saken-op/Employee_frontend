@@ -73,7 +73,7 @@ export const OriginalForm = ({
             type="date"
             value={
               employee.dateOfJoining
-                ? employee.dateOfJoining.toISOString().split("T")[0]
+                ? new Date(employee.dateOfJoining).toISOString().split("T")[0]
                 : ""
             } // Converts Date -> "YYYY-MM-DD"
             label="Joining date"
@@ -119,12 +119,12 @@ export const OriginalForm = ({
             }
           />
           <Input
-            value={employee.departmentId ?? ""}
+            value={employee.deptID ? employee.deptID.toString() : ""}
             type="string"
-            placeholder="Employee Name"
+            placeholder="Department"
             label="Department"
             update={(e) =>
-              setEmployee({ ...employee, departmentId: e.target.value })
+              setEmployee({ ...employee, deptID: Number(e.target.value) })
             }
           />
           <div
@@ -195,11 +195,11 @@ export const OriginalForm = ({
 
           <Input
             type="string"
-            value={employee.employeeId ?? ""}
+            value={employee.employeeID ?? ""}
             placeholder="Employee ID"
             label="Employee ID"
             update={(e) =>
-              setEmployee({ ...employee, employeeId: e.target.value })
+              setEmployee({ ...employee, employeeID: e.target.value })
             }
             isDisabled={isDisabled}
           />

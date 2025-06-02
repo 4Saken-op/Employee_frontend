@@ -3,7 +3,7 @@ import "./employeeheader.css";
 import { StatusOptions } from "./status_options";
 
 export const EmployeeDetailsHeader = () => {
-  const statuses = ["All", "Active", "Inactive", "Probation"];
+  const statuses = ["All", "ACTIVE", "INACTIVE", "PROBATION"];
   const [searchParams, setSearchParams] = useSearchParams();
 
   console.log("searchParams", searchParams.get("status"));

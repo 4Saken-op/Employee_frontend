@@ -4,29 +4,29 @@ import { LoginInput } from "./props/input_login";
 import { useEffect, useRef, useState } from "react";
 import { useMousePointer } from "./props/mousePointer";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../api-services/auth/login.api";
 
 export const Login = () => {
-  let validUsername = "erwinjose@gmail.com";
-  let validPassword = "password";
-
   const navigate = useNavigate();
 
-  let handleClick = () => {
-    setUsername("");
-    setPassword("");
-    if (username === validUsername && password === validPassword) {
-      localStorage.setItem("isLoggedIn", "true");
-      alert("Details submitted successsfullly");
-      navigate("/employee");
-    } else {
-      alert("Not present");
-    }
-  };
+  // let handleClick = () => {
+  //   setUsername("");
+  //   setPassword("");
+  //   if (username === validUsername && password === validPassword) {
+  //     localStorage.setItem("isLoggedIn", "true");
+  //     alert("Details submitted successsfullly");
+  //     navigate("/employee");
+  //   } else {
+  //     alert("Not present");
+  //   }
+  // };
 
+  const [login, { isLoading }] = useLoginMutation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setError] = useState("Valid");
   const [showPassword, setShowPassword] = useState(false);
+  const [loginerror, setLoginError] = useState("");
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const mousePointer = useMousePointer();
@@ -52,6 +52,33 @@ export const Login = () => {
     } else {
       setShowPassword(true);
     }
+  };
+
+  // const onLogin = async () => {
+  //   const response = await login({ email: username, password: password });
+
+  //   if (response.data) {
+  //     localStorage.setItem(
+  //       "token",
+  //       response.data ? response.data.accessToken : ""
+  //     );
+  //     localStorage.setItem("isLoggedIn", "true");
+  //     navigate("/employee");
+  //   } else {
+  //     alert("Invalid Credentials");
+  //   }
+  // };
+  const onLogin = async () => {
+    login({ email: username, password: password })
+      .unwrap()
+      .then((response) => {
+        localStorage.setItem("token", response.accessToken);
+        localStorage.setItem("isLoggedIn", "true");
+        navigate("/employee");
+      })
+      .catch((error) => {
+        setLoginError(error.data.message);
+      });
   };
 
   return (
@@ -109,12 +136,14 @@ export const Login = () => {
             name="LoginButton"
             type="submit"
             label="Submit"
-            onClick={handleClick}
+            onClick={onLogin}
+            disabled={isLoading}
           ></Button>
-          <div style={{ paddingTop: "50px" }} className="counter1">
+          {/* <div style={{ paddingTop: "50px" }} className="counter1">
             {"Username: " + username}
           </div>
-          <div className="counter1">{"Password: " + password}</div>
+          <div className="counter1">{"Password: " + password}</div> */}
+          <div className="counter1">loginerror</div>
         </div>
       </div>
     </div>

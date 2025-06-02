@@ -1,10 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import "./employeeheader.css";
+import type { GetOneResponse } from "../../../api-services/employees/types";
 
-export const EmployeeHeader = ({ id }: { id?: string }) => {
+export const EmployeeHeader = ({
+  id,
+  object,
+}: {
+  id?: string;
+  object: GetOneResponse | undefined;
+}) => {
   const navigate = useNavigate();
   const gotToEdit = () => {
-    navigate("edit");
+    console.log("Employee Details sent using navigate: ", object);
+    navigate("edit", { state: object });
   };
   return (
     <div className="heading_section">

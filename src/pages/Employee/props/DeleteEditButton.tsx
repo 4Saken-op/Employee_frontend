@@ -1,38 +1,42 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Modal.css";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  EMPLOYEE_ACTION_TYPES,
-  type EmployeeState,
-} from "../../../store/employee/employee.types";
-import { deleteEmployee } from "../../../store/employee/employeeReducer";
-import { useAppSelector } from "../../../store/store";
+import { useDispatch } from "react-redux";
+import { type Employee } from "../../../store/employee/employee.types";
+
+import { useDeleteEmpMutation } from "../../../api-services/employees/employee.api";
 
 export const DeleteEditButton = ({
   id,
   name,
+  object,
 }: {
   id: string;
   name: string;
+  object: Employee;
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const newEmployees = useAppSelector((state) => state.employee.employees);
-  const found = newEmployees.find((emp: any) => emp.employeeId === id);
+  // const newEmployees = useAppSelector((state) => state.employee.employees);
+  // const found = newEmployees.find((emp: any) => emp.employeeId === id);
 
   const goToEdit = () => {
-    navigate("/employee/" + id + "/edit");
+    console.log("Passing object from employee details edit button: 0", object);
+    navigate("/employee/" + id + "/edit", { state: object });
   };
+
+  const [deleteEmp] = useDeleteEmpMutation();
 
   const handleDelete = () => {
     setShowModal(false);
-    alert("Deleted " + { name });
-    if (found) dispatch(deleteEmployee(found));
+
+    const response = deleteEmp({ id });
+    // if (found) dispatch(deleteEmployee(found));
     // dispatch({
     //   type: EMPLOYEE_ACTION_TYPES.DELETE,
     //   payload: found,
     // });
+
     navigate("/employee");
   };
 

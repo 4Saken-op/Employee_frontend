@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import "./employee_row.css";
 import type { Role, Status } from "../../../store/employee/employee.types";
+import type { GetOneResponse } from "../../../api-services/employees/types";
 
 type row_type = {
+  actualID: string;
   name: string;
   color?: string;
   id: string;
-  joining: Date | null;
+  joining: string | null;
   role: Role | null;
   status: Status | React.ReactNode;
   experience: number | null;
@@ -14,6 +16,7 @@ type row_type = {
 };
 
 export const EmployeeRow = ({
+  actualID,
   name,
   color,
   id,
@@ -24,27 +27,28 @@ export const EmployeeRow = ({
   action,
 }: row_type) => {
   const navigate = useNavigate();
-  const goToEmployeePage = (id: string) => {
-    navigate(id);
+  const goToEmployeePage = () => {
+    navigate("/employee/" + actualID);
   };
+
   return (
     <div className="full_row" style={{ backgroundColor: color }}>
-      <div className="content" onClick={() => goToEmployeePage(id)}>
+      <div className="content" onClick={() => goToEmployeePage()}>
         {name}
       </div>
-      <div className="content" onClick={() => goToEmployeePage(id)}>
+      <div className="content" onClick={() => goToEmployeePage()}>
         {id}
       </div>
-      <div className="content" onClick={() => goToEmployeePage(id)}>
-        {joining ? joining.toISOString().split("T")[0] : ""}
+      <div className="content" onClick={() => goToEmployeePage()}>
+        {joining ? joining.split("T")[0] : ""}
       </div>
-      <div className="content" onClick={() => goToEmployeePage(id)}>
+      <div className="content" onClick={() => goToEmployeePage()}>
         {role}
       </div>
-      <div className="content" onClick={() => goToEmployeePage(id)}>
+      <div className="content" onClick={() => goToEmployeePage()}>
         {status}
       </div>
-      <div className="content" onClick={() => goToEmployeePage(id)}>
+      <div className="content" onClick={() => goToEmployeePage()}>
         {experience}
       </div>
 

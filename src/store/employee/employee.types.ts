@@ -23,15 +23,15 @@ export const EmployeeRole = {
 export type Role = (typeof EmployeeRole)[keyof typeof EmployeeRole];
 
 export const EmployeeStatus = {
-  ACTIVE: "Active",
-  INACTIVE: "Inactive",
-  PROBATION: "Probation",
+  ACTIVE: "ACTIVE",
+  INACTIVE: "INACTIVE",
+  PROBATION: "PROBATION",
 } as const;
 
 export type Status = (typeof EmployeeStatus)[keyof typeof EmployeeStatus];
 
 export interface Employee {
-  employeeId: string;
+  employeeID: string;
   email: string;
   name: string;
   age: number;
@@ -41,7 +41,7 @@ export interface Employee {
   dateOfJoining: Date | null;
   experience: number | null;
   status: Status | null;
-  departmentId: string;
+  deptID: number | null;
 }
 //   name: string;
 //   id: string;

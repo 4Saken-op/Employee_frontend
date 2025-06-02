@@ -4,15 +4,22 @@ import { applyMiddleware, legacy_createStore as createStore } from "redux";
 import employeeReducer from "./employee/employeeReducer";
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
+import baseApi from "../api-services/api";
+import { setupListeners } from "@reduxjs/toolkit/query";
 
 // export const store = createStore(employeeReducer, applyMiddleware(logger));
 
 const store = configureStore({
   reducer: {
-    employee: employeeReducer,
     //department: departmentReducer,
+    employee: employeeReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(baseApi.middleware),
 });
+
+setupListeners(store.dispatch);
 
 export default store;
 
