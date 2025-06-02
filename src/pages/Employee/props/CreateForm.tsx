@@ -14,11 +14,12 @@ import {
   type EmployeeState,
   EmployeeStatus,
 } from "../../../store/employee/employee.types";
+import { addEmployee } from "../../../store/employee/employeeReducer";
 
 export const Employee_details = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const storeState = useSelector((state: EmployeeState) => state);
+  // const storeState = useSelector((state: EmployeeState) => state);
   // console.log("Dispatch Data: ", storeState.employees);
 
   const [employeeState, setEmployeeState] = useState<Employee>({
@@ -52,10 +53,11 @@ export const Employee_details = () => {
           className="blue"
           onClick={() => {
             alert(employeeState.name + " details created");
-            dispatch({
-              type: EMPLOYEE_ACTION_TYPES.CREATE,
-              payload: employeeState,
-            });
+            dispatch(addEmployee(employeeState));
+            // dispatch({
+            //   type: EMPLOYEE_ACTION_TYPES.CREATE,
+            //   payload: employeeState,
+            // });
             // console.log(storeState);
             // console.log(store.getState());
             navigate("/employee");

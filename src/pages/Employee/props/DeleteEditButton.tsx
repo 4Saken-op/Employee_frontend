@@ -6,6 +6,8 @@ import {
   EMPLOYEE_ACTION_TYPES,
   type EmployeeState,
 } from "../../../store/employee/employee.types";
+import { deleteEmployee } from "../../../store/employee/employeeReducer";
+import { useAppSelector } from "../../../store/store";
 
 export const DeleteEditButton = ({
   id,
@@ -16,8 +18,8 @@ export const DeleteEditButton = ({
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const newEmployees = useSelector((state: EmployeeState) => state.employees);
-  const found = newEmployees.find((emp) => emp.employeeId === id);
+  const newEmployees = useAppSelector((state) => state.employee.employees);
+  const found = newEmployees.find((emp: any) => emp.employeeId === id);
 
   const goToEdit = () => {
     navigate("/employee/" + id + "/edit");
@@ -26,10 +28,11 @@ export const DeleteEditButton = ({
   const handleDelete = () => {
     setShowModal(false);
     alert("Deleted " + { name });
-    dispatch({
-      type: EMPLOYEE_ACTION_TYPES.DELETE,
-      payload: found,
-    });
+    if (found) dispatch(deleteEmployee(found));
+    // dispatch({
+    //   type: EMPLOYEE_ACTION_TYPES.DELETE,
+    //   payload: found,
+    // });
     navigate("/employee");
   };
 

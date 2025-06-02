@@ -9,11 +9,13 @@ import { Detail } from "./props/detail";
 import { EmployeeHeader } from "./props/employeeheader";
 import { useSelector } from "react-redux";
 import type { EmployeeState } from "../../store/employee/employee.types";
+import { useAppSelector } from "../../store/store";
 
 export const EmployeeDetailsByID = () => {
   const { id } = useParams();
-  const newEmployees = useSelector((state: EmployeeState) => state.employees);
-  const found = newEmployees.find((emp) => emp.employeeId === id);
+  // const newEmployees = useSelector((state: EmployeeState) => state.employees);
+  const newEmployees = useAppSelector((state) => state.employee.employees);
+  const found = newEmployees.find((emp: any) => emp.employeeId === id);
 
   return (
     <div className="right-div">

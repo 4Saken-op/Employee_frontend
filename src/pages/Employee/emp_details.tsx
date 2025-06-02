@@ -9,6 +9,7 @@ import type {
   EmployeeState,
 } from "../../store/employee/employee.types";
 import { DetailsTitleRow } from "./props/detailsTitles";
+import { useAppSelector } from "../../store/store";
 
 export const EmployeeDetails = () => {
   // let employees: Employee[] = [
@@ -59,7 +60,8 @@ export const EmployeeDetails = () => {
 
   console.log("Status in createEmployee: ", currentStatus);
 
-  const newEmployees = useSelector((state: EmployeeState) => state.employees);
+  const newEmployees = useAppSelector((state) => state.employee.employees);
+  console.log(newEmployees);
   // employees = [...employees, ...newEmployees];
 
   return (
@@ -80,9 +82,9 @@ export const EmployeeDetails = () => {
 
       {newEmployees
         .filter(
-          (item) => item.status === currentStatus || currentStatus === null
+          (item: any) => item.status === currentStatus || currentStatus === null
         )
-        .map((item) => (
+        .map((item: any) => (
           <EmployeeRow
             key={item.employeeId}
             name={item.name}
