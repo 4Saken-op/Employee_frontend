@@ -59,13 +59,15 @@ export const OriginalForm = ({
           />
           <Input
             type="number"
-            value={employee.age ? employee.age.toString() : ""}
+            value={
+              employee.age || employee.age === 0 ? employee.age.toString() : ""
+            }
             label="Age"
             placeholder="Age"
             update={(e) =>
               setEmployee({
                 ...employee,
-                age: e.target.value === "" ? 0 : Number(e.target.value),
+                age: e.target.value === "" ? null : Number(e.target.value),
               })
             }
           />
@@ -108,13 +110,18 @@ export const OriginalForm = ({
           />
           <Input
             type="number"
-            value={employee.experience ? employee.experience.toString() : ""}
+            value={
+              employee.experience || employee.experience === 0
+                ? employee.experience.toString()
+                : ""
+            }
             label="Experience"
             placeholder="Experience"
             update={(e) =>
               setEmployee({
                 ...employee,
-                experience: e.target.value === "" ? 0 : Number(e.target.value),
+                experience:
+                  e.target.value === "" ? null : Number(e.target.value),
               })
             }
           />
@@ -156,7 +163,7 @@ export const OriginalForm = ({
                   ...employee,
                   address: {
                     ...employee.address,
-                    line1: e.target.value, // assuming houseNo is a string
+                    line1: e.target.value,
                   },
                 })
               }
@@ -171,7 +178,7 @@ export const OriginalForm = ({
                   ...employee,
                   address: {
                     ...employee.address,
-                    line2: e.target.value, // assuming houseNo is a string
+                    line2: e.target.value,
                   },
                 })
               }
@@ -186,7 +193,7 @@ export const OriginalForm = ({
                   ...employee,
                   address: {
                     ...employee.address,
-                    pincode: e.target.value, // assuming houseNo is a string
+                    pincode: e.target.value,
                   },
                 })
               }

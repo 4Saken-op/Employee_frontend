@@ -21,7 +21,7 @@ export const Employee_details = () => {
     employeeID: "",
     email: "",
     name: "",
-    age: 0,
+    age: null,
     address: {
       houseNo: "",
       line1: "",
@@ -31,7 +31,7 @@ export const Employee_details = () => {
     password: "",
     role: null, // or EmployeeRole.DEVELOPER etc.
     dateOfJoining: null,
-    experience: 0,
+    experience: null,
     status: null, // one of the allowed Statuses
     deptID: null,
   });
@@ -57,11 +57,10 @@ export const Employee_details = () => {
             // });
             // console.log(storeState);
             // console.log(store.getState());
-            console.log("Employee details: ", employeeState);
+            console.log("Created Employee details: ", employeeState);
             const response = await createEmp(employeeState);
             if (response.data) {
               console.log("🚀 ~ response.data:", response.data);
-              alert("Created in backend");
             } else alert("Creation unsuccessful");
             navigate("/employee");
           }}

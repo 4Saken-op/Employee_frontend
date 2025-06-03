@@ -34,7 +34,7 @@ export interface Employee {
   employeeID: string;
   email: string;
   name: string;
-  age: number;
+  age: number | null;
   address: Address;
   password: string;
   role: Role | null;

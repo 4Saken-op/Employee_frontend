@@ -54,32 +54,32 @@ export const Login = () => {
     }
   };
 
-  // const onLogin = async () => {
-  //   const response = await login({ email: username, password: password });
-
-  //   if (response.data) {
-  //     localStorage.setItem(
-  //       "token",
-  //       response.data ? response.data.accessToken : ""
-  //     );
-  //     localStorage.setItem("isLoggedIn", "true");
-  //     navigate("/employee");
-  //   } else {
-  //     alert("Invalid Credentials");
-  //   }
-  // };
   const onLogin = async () => {
-    login({ email: username, password: password })
-      .unwrap()
-      .then((response) => {
-        localStorage.setItem("token", response.accessToken);
-        localStorage.setItem("isLoggedIn", "true");
-        navigate("/employee");
-      })
-      .catch((error) => {
-        setLoginError(error.data.message);
-      });
+    const response = await login({ email: username, password: password });
+
+    if (response.data) {
+      localStorage.setItem(
+        "token",
+        response.data ? response.data.accessToken : ""
+      );
+      localStorage.setItem("isLoggedIn", "true");
+      navigate("/employee");
+    } else {
+      alert("Invalid Credentials");
+    }
   };
+  // const onLogin = async () => {
+  //   login({ email: username, password: password })
+  //     .unwrap()
+  //     .then((response) => {
+  //       localStorage.setItem("token", response.accessToken);
+  //       localStorage.setItem("isLoggedIn", "true");
+  //       navigate("/employee");
+  //     })
+  //     .catch((error) => {
+  //       setLoginError(error.data.message);
+  //     });
+  // };
 
   return (
     <div className="main">
@@ -137,13 +137,13 @@ export const Login = () => {
             type="submit"
             label="Submit"
             onClick={onLogin}
-            disabled={isLoading}
+            // disabled={isLoading}
           ></Button>
           {/* <div style={{ paddingTop: "50px" }} className="counter1">
             {"Username: " + username}
           </div>
           <div className="counter1">{"Password: " + password}</div> */}
-          <div className="counter1">loginerror</div>
+          <div className="counter1">{loginerror}</div>
         </div>
       </div>
     </div>

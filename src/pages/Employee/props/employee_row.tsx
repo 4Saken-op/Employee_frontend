@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./employee_row.css";
 import type { Role, Status } from "../../../store/employee/employee.types";
-import type { GetOneResponse } from "../../../api-services/employees/types";
 
 type row_type = {
   actualID: string;

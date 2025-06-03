@@ -27,7 +27,10 @@ export const EmployeeDetailsByID = () => {
       </div>
       <div className="employee_detail">
         <Detail attr="Name" value={found?.name ? found.name : ""} />
-        <Detail attr="Age" value={found?.age ? found.age.toString() : ""} />
+        <Detail
+          attr="Age"
+          value={found?.age || found?.age === 0 ? found.age.toString() : ""}
+        />
         <Detail
           attr="Email"
           value={found?.email ? found.email.toString() : ""}
@@ -48,7 +51,11 @@ export const EmployeeDetailsByID = () => {
         <Detail attr="Status" value={found?.status ? found.status : ""} />
         <Detail
           attr="Experience"
-          value={found?.experience ? found.experience.toString() : ""}
+          value={
+            found?.experience || found?.experience === 0
+              ? found.experience.toString()
+              : ""
+          }
         />
         <Detail
           attr="Address"
