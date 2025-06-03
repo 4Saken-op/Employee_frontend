@@ -9,6 +9,7 @@ import {
   type Role,
   type Status,
 } from "../../../store/employee/employee.types";
+import { useSelectAllDeptQuery } from "../../../api-services/dept/dept.api";
 
 export const OriginalForm = ({
   employee,
@@ -24,6 +25,22 @@ export const OriginalForm = ({
   const roles = Object.values(EmployeeRole);
   const statuses = Object.values(EmployeeStatus);
 
+  const { data } = useSelectAllDeptQuery({});
+  // console.log("Departments fetched: ", data);
+  const deptDict =
+    data?.reduce((acc, dept) => {
+      acc[dept.name] = dept.id;
+      return acc;
+    }, {} as { [key: string]: string }) || {};
+
+  const rev_deptDict =
+    data?.reduce((acc, dept) => {
+      acc[dept.id] = dept.name;
+      return acc;
+    }, {} as { [key: string]: string }) || {};
+
+  // console.log("Dictionary created", deptDict);
+
   const navigate = useNavigate();
   const goBack = () => {
     navigate("/employee");
@@ -36,26 +53,27 @@ export const OriginalForm = ({
           <Input
             value={employee.name ?? ""}
             type="string"
-            placeholder="Employee Name"
+            placeholder="Enter Name"
             label="Employee Name"
             update={(e) => setEmployee({ ...employee, name: e.target.value })}
           />
           <Input
             value={employee.email ?? ""}
             type="string"
-            placeholder="Email"
+            placeholder="Enter Email"
             label="Email"
             update={(e) => setEmployee({ ...employee, email: e.target.value })}
           />
           <Input
             value={employee.password ?? ""}
-            type={isDisabled ? "password" : "text"}
-            placeholder="Password"
+            // type={isDisabled ? "password" : "text"}
+            type="text"
+            placeholder="Enter Password"
             label="Password"
             update={(e) =>
               setEmployee({ ...employee, password: e.target.value })
             }
-            isDisabled={isDisabled}
+            // isDisabled={isDisabled}
           />
           <Input
             type="number"
@@ -63,7 +81,7 @@ export const OriginalForm = ({
               employee.age || employee.age === 0 ? employee.age.toString() : ""
             }
             label="Age"
-            placeholder="Age"
+            placeholder="Enter Age"
             update={(e) =>
               setEmployee({
                 ...employee,
@@ -116,7 +134,7 @@ export const OriginalForm = ({
                 : ""
             }
             label="Experience"
-            placeholder="Experience"
+            placeholder="Enter Experience (in years)"
             update={(e) =>
               setEmployee({
                 ...employee,
@@ -125,13 +143,25 @@ export const OriginalForm = ({
               })
             }
           />
-          <Input
+          {/* <Input
             value={employee.deptID ? employee.deptID.toString() : ""}
             type="string"
             placeholder="Department"
             label="Department"
             update={(e) =>
               setEmployee({ ...employee, deptID: Number(e.target.value) })
+            }
+          /> */}
+          <Options
+            value={employee.deptID ? rev_deptDict[employee.deptID] : ""}
+            name="Choose Department"
+            list={Object.keys(deptDict)}
+            label="Department"
+            onChange={(e) =>
+              setEmployee({
+                ...employee,
+                deptID: Number(deptDict[e.target.value]),
+              })
             }
           />
           <div
@@ -141,7 +171,7 @@ export const OriginalForm = ({
             <Input
               type="string"
               value={employee.address?.houseNo ?? ""}
-              placeholder="House No"
+              placeholder="Enter House No"
               label="House No"
               update={(e) =>
                 setEmployee({
@@ -156,7 +186,7 @@ export const OriginalForm = ({
             <Input
               type="string"
               value={employee.address?.line1 ?? ""}
-              placeholder="Line 1"
+              placeholder="Enter Line 1"
               label="Line 1"
               update={(e) =>
                 setEmployee({
@@ -171,7 +201,7 @@ export const OriginalForm = ({
             <Input
               type="string"
               value={employee.address?.line2 ?? ""}
-              placeholder="Line 2"
+              placeholder="Enter Line 2"
               label="Line 2"
               update={(e) =>
                 setEmployee({
@@ -186,7 +216,7 @@ export const OriginalForm = ({
             <Input
               type="string"
               value={employee.address?.pincode ?? ""}
-              placeholder="Pincode"
+              placeholder="Enter Pincode"
               label="Pincode"
               update={(e) =>
                 setEmployee({
@@ -203,7 +233,7 @@ export const OriginalForm = ({
           <Input
             type="string"
             value={employee.employeeID ?? ""}
-            placeholder="Employee ID"
+            placeholder="Enter Employee ID"
             label="Employee ID"
             update={(e) =>
               setEmployee({ ...employee, employeeID: e.target.value })

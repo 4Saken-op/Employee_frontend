@@ -30,7 +30,7 @@ export const EditContent = ({ employee }: { employee: GetOneResponse }) => {
         line2: employee.address.line2,
         pincode: employee.address.pincode,
       },
-      password: employee.password,
+      password: "",
       role: employee.role, // or EmployeeRole.DEVELOPER etc.
       dateOfJoining: employee.dateOfJoining,
       experience: employee.experience,
@@ -49,6 +49,9 @@ export const EditContent = ({ employee }: { employee: GetOneResponse }) => {
             value="Submit"
             className="blue"
             onClick={async () => {
+              if (employeeState.password === "") {
+                employeeState.password = employee.password;
+              }
               alert(employeeState.name + "'s details Updated successsfullly");
               // dispatch(updateEmployee(employeeState));
               // dispatch({

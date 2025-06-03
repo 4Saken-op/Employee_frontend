@@ -1,4 +1,3 @@
-import type { Employee } from "../../store/employee/employee.types";
 import baseApi from "../api";
 import type {
   CreatePayload,

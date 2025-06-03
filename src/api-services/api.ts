@@ -17,7 +17,7 @@ const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Employee"],
+  tagTypes: ["Employee", "Dept"],
   refetchOnMountOrArgChange: true,
   refetchOnReconnect: true,
   endpoints: () => ({}),

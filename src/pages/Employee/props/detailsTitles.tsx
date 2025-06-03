@@ -23,14 +23,28 @@ export const DetailsTitleRow = ({
 }: row_type) => {
   return (
     <div className="full_row" style={{ backgroundColor: color }}>
-      <div className="content">{name}</div>
-      <div className="content">{id}</div>
-      <div className="content">{joining}</div>
-      <div className="content">{role}</div>
-      <div className="content">{status}</div>
-      <div className="content">{experience}</div>
+      <div className="content" style={{ fontSize: "20px" }}>
+        {name}
+      </div>
+      <div className="content" style={{ fontSize: "20px" }}>
+        {id}
+      </div>
+      <div className="content" style={{ fontSize: "20px" }}>
+        {joining}
+      </div>
+      <div className="content" style={{ fontSize: "20px" }}>
+        {role}
+      </div>
+      <div className="content" style={{ fontSize: "20px" }}>
+        {status}
+      </div>
+      <div className="content" style={{ fontSize: "20px" }}>
+        {experience}
+      </div>
 
-      <div className="content">{action}</div>
+      <div className="content" style={{ fontSize: "20px" }}>
+        {action}
+      </div>
     </div>
   );
 };

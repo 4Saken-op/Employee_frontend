@@ -54,32 +54,32 @@ export const Login = () => {
     }
   };
 
-  const onLogin = async () => {
-    const response = await login({ email: username, password: password });
-
-    if (response.data) {
-      localStorage.setItem(
-        "token",
-        response.data ? response.data.accessToken : ""
-      );
-      localStorage.setItem("isLoggedIn", "true");
-      navigate("/employee");
-    } else {
-      alert("Invalid Credentials");
-    }
-  };
   // const onLogin = async () => {
-  //   login({ email: username, password: password })
-  //     .unwrap()
-  //     .then((response) => {
-  //       localStorage.setItem("token", response.accessToken);
-  //       localStorage.setItem("isLoggedIn", "true");
-  //       navigate("/employee");
-  //     })
-  //     .catch((error) => {
-  //       setLoginError(error.data.message);
-  //     });
+  //   const response = await login({ email: username, password: password });
+
+  //   if (response.data) {
+  //     localStorage.setItem(
+  //       "token",
+  //       response.data ? response.data.accessToken : ""
+  //     );
+  //     localStorage.setItem("isLoggedIn", "true");
+  //     navigate("/employee");
+  //   } else {
+  //     alert("Invalid Credentials");
+  //   }
   // };
+  const onLogin = async () => {
+    login({ email: username, password: password })
+      .unwrap()
+      .then((response) => {
+        localStorage.setItem("token", response.accessToken);
+        localStorage.setItem("isLoggedIn", "true");
+        navigate("/employee");
+      })
+      .catch((error) => {
+        setLoginError(error.data.message);
+      });
+  };
 
   return (
     <div className="main">
@@ -96,7 +96,7 @@ export const Login = () => {
             style={{ display: "flex", alignItems: "center", marginTop: "30px" }}
           >
             <LoginInput
-              name="username"
+              label="username"
               value={username}
               type="text"
               placeholder="Username"
@@ -122,7 +122,7 @@ export const Login = () => {
           </div>
 
           <LoginInput
-            name="password"
+            label="password"
             value={password}
             type={showPassword ? "text" : "password"}
             placeholder="Password"
