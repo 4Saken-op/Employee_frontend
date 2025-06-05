@@ -29,13 +29,14 @@ export const Login = () => {
   const [loginerror, setLoginError] = useState("");
 
   const usernameRef = useRef<HTMLInputElement>(null);
-  const mousePointer = useMousePointer();
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // const mousePointer = useMousePointer();
 
   useEffect(() => {
-    if (username.length > 10) {
+    if (regex.test(username)) {
       setError("Valid");
     } else {
-      setError("InValid");
+      setError("Invalid");
     }
   }),
     [username];
@@ -72,12 +73,13 @@ export const Login = () => {
     login({ email: username, password: password })
       .unwrap()
       .then((response) => {
+        setLoginError(""); // clear old error
         localStorage.setItem("token", response.accessToken);
         localStorage.setItem("isLoggedIn", "true");
         navigate("/employee");
       })
       .catch((error) => {
-        setLoginError(error.data.message);
+        setLoginError(error?.data?.message || "Login failed");
       });
   };
 
@@ -89,12 +91,11 @@ export const Login = () => {
       <div className="right-part">
         <div className="login-box">
           <img src="./src/assets/images/kv-logo.png" alt="logo"></img>
-          <div>
+          {/* <div>
             x: {mousePointer.x}, y: {mousePointer.y}
-          </div>
-          <div
-            style={{ display: "flex", alignItems: "center", marginTop: "30px" }}
-          >
+          </div> */}
+
+          <div className="input-container">
             <LoginInput
               label="username"
               value={username}
@@ -103,19 +104,21 @@ export const Login = () => {
               onChange={(e) => setUsername(e.target.value)}
               ref={usernameRef}
             />
-            <button
-              className="clear_button"
-              onClick={() => setUsername("")}
-              disabled={username.length === 0}
-            >
-              Clear
-            </button>
+            {username.length > 0 && (
+              <span className="clear-text" onClick={() => setUsername("")}>
+                Clear
+              </span>
+            )}
           </div>
           <div
             style={{
-              color: errorMessage === "Valid" ? "green" : "red",
+              color:
+                username === ""
+                  ? "white"
+                  : errorMessage === "Valid"
+                  ? "green"
+                  : "red",
               paddingTop: "5px",
-              paddingBottom: "20px",
             }}
           >
             {errorMessage}
@@ -135,15 +138,21 @@ export const Login = () => {
           <Button
             name="LoginButton"
             type="submit"
-            label="Submit"
+            label={isLoading ? "Logging in..." : "Submit"}
             onClick={onLogin}
-            // disabled={isLoading}
+            disabled={isLoading}
           ></Button>
           {/* <div style={{ paddingTop: "50px" }} className="counter1">
             {"Username: " + username}
           </div>
           <div className="counter1">{"Password: " + password}</div> */}
-          <div className="counter1">{loginerror}</div>
+          {loginerror && (
+            <div
+              style={{ color: "red", marginTop: "10px", textAlign: "center" }}
+            >
+              {loginerror}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -49,20 +49,29 @@ export const Employee_details = () => {
           value="Submit"
           className="blue"
           onClick={async () => {
-            alert(employeeState.name + " details created");
-            // dispatch(addEmployee(employeeState));
-            // dispatch({
-            //   type: EMPLOYEE_ACTION_TYPES.CREATE,
-            //   payload: employeeState,
-            // });
-            // console.log(storeState);
-            // console.log(store.getState());
-            console.log("Created Employee details: ", employeeState);
-            const response = await createEmp(employeeState);
-            if (response.data) {
-              console.log("🚀 ~ response.data:", response.data);
-            } else alert("Creation unsuccessful");
-            navigate("/employee");
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regex.test(employeeState.email)) {
+              alert("Invalid Email");
+              navigate("/employee/create");
+            } else {
+              // dispatch(addEmployee(employeeState));
+              // dispatch({
+              //   type: EMPLOYEE_ACTION_TYPES.CREATE,
+              //   payload: employeeState,
+              // });
+              // console.log(storeState);
+              // console.log(store.getState());
+              console.log("Created Employee details: ", employeeState);
+              const response = await createEmp(employeeState);
+              console.log("🚀 ~ response:", response);
+              if (response.data) {
+                // console.log("🚀 ~ response.data:", response.data);
+                alert(employeeState.name + " details created");
+              } else {
+                alert("Creation unsuccessful");
+              }
+              navigate("/employee/create");
+            }
           }}
         />
       }

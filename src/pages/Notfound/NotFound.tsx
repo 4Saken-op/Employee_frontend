@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-// import "../../pages/Employee.css";
+import "./NotFound.css";
 
 const NotFound = () => (
   <div className="not-found-container">
@@ -20,7 +20,7 @@ const NotFound = () => (
       </div>
       <h1>Page Not Found</h1>
       <p>The page you are looking for doesn't exist or has been moved.</p>
-      <Link to="/login" className="button button--primary return-home-btn">
+      <Link to="/employee" className="button button--primary return-home-btn">
         Return to Home
       </Link>
     </div>
